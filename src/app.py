@@ -35,6 +35,14 @@ def handle_hello():
     }
     return jsonify(response_body), 200
 
+
+@app.route('/member/<int:member_id>', methods=['GET'])  # se crea la ruta para un solo miembro con un id flexible
+def one_member(member_id):      # se crea la función 
+    one = jackson_family.get_member(member_id)      # se crea la variable que contendra la informacion de la class.funcion(con el self (en este caso es member)_id )
+    if not one:     # se crea condicional que verifique si la informacion se recibio correctamente
+        return jsonify({"msg": "we couldn't find that member"}), 400    # si no
+    return jsonify(one), 200        # si sí
+
 @app.route('/member', methods=['POST'])
 def add_member():
     new_member = request.json
