@@ -31,13 +31,36 @@ def handle_hello():
     # this is how you can use the Family datastructure by calling its methods
     members = jackson_family.get_all_members()
     response_body = {
-        "hello": "world",
-        "family": members
+        "member": members  # esto es equivalente al self.members=[] de datastructure
     }
-
-
     return jsonify(response_body), 200
 
+@app.route('/member', methods=['POST'])
+def add_member():
+    new_member = request.json
+
+    jackson_family.add_member(new_member)  # esto trae la información de la class.función y a esta función se le manda el valor deseado, el cual será poseriormente el name.
+    return jsonify({"done": "user created"})
+
+@app.route('/member/<int:member_id>', methods=['DELETE'])  # dentro del path se ingresa una url dinamica, la cual va a cambiar en función especifica del id unico de cada member
+def delete_one_member(member_id):
+    
+    deleting_member = jackson_family.delete_member(member_id)
+    if not deleting_member:
+        return jsonify({"msg": "unespected value"}), 400
+    return jsonify({"done": "member has been deleted successfully"}), 200
+
+@app.route('/member/<int:member_id>', methods=['PUT'])
+def update_family_member(member_id):
+    
+    new_member = request.json       # ya que lo que realiza la función update_member es borrar el miembro anterior y crear uno nuevo con la nueva información, es necesario hacer uso del new_member = request.json que está en el post
+
+    updated_member = jackson_family.update_member(member_id, new_member)
+    if not updated_member:
+        return jsonify({"msg": "that user doesn't exist"}), 400
+    return jsonify({"done": "member updated successfully"}), 200
+
+   
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
