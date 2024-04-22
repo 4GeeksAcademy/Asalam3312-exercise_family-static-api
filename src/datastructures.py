@@ -13,7 +13,26 @@ class FamilyStructure:
         self.last_name = last_name
 
         # example list of members
-        self._members = []
+        self._members = [
+            {
+                "id": 1,
+                "name": "John Jackson",
+                "age": 33,
+                "lucky_numbers": [7, 13, 22]
+            },
+            {
+                "id": 2,
+                "name": "Jane Jackson",
+                "age": 35,
+                "lucky_numbers": [10, 14, 3]
+            },
+            {
+                "id": 3,
+                "name": "Jimmy Jackson",
+                "age": 5,
+                "lucky_numbers": [1]
+            }
+        ]
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
@@ -38,7 +57,7 @@ class FamilyStructure:
             if member["id"] == id:        # si el member["id"] (se debe señalar entre corchetes y a manera de string) es == igual a ID
                 self._members.remove(member)        # se pone como target el lugar donde se encuentra contenido aquello que se quiere borrar y se le agrega .remove( con aquello que vamos a borrar )
                 return True         # si el miembro existe retorna True que terminará generando el status 200
-            return False        # de lo contrario para hacer el manejo de errores es necesario que se retorne False el cual resultará generando el status 400
+        return False        # de lo contrario para hacer el manejo de errores es necesario que se retorne False el cual resultará generando el status 400
     
 
 
@@ -50,7 +69,7 @@ class FamilyStructure:
                 member["id"] = id
                 self._members.append(member)
                 return True
-            return False
+        return False
                 
         
 
@@ -59,9 +78,12 @@ class FamilyStructure:
         for one_member in self._members:
             if one_member["id"] == id:
                 return one_member
-            return False
+        return False
         
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
         return self._members
+
+
+
