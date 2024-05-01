@@ -42,7 +42,7 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        if not member.get("id"):        # condicional, si member no tiene .get("id") con el .get() y no con [] para que no arroje error en caso de no cumplirse
+        if not member.get("id"):        # condicional, debe estar con .get("id") y no con ["id"] par que no genere error en caso de no existir
             member["id"]= self._generateId()        # en caso de que no lo tenga, el condicional pasa a crearle un id con la función definida arriba
         self._members.append(member)        # se le añade el valor de member a member, creando así un nuevo miembro
 
@@ -57,7 +57,7 @@ class FamilyStructure:
             if member["id"] == id:        # si el member["id"] (se debe señalar entre corchetes y a manera de string) es == igual a ID
                 self._members.remove(member)        # se pone como target el lugar donde se encuentra contenido aquello que se quiere borrar y se le agrega .remove( con aquello que vamos a borrar )
                 return True         # si el miembro existe retorna True que terminará generando el status 200
-        return False        # de lo contrario para hacer el manejo de errores es necesario que se retorne False el cual resultará generando el status 400
+        # return False        # de lo contrario para hacer el manejo de errores es necesario que se retorne False el cual resultará generando el status 400
     
 
 

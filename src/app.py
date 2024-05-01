@@ -54,7 +54,7 @@ def delete_one_member(member_id):
     deleting_member = jackson_family.delete_member(member_id)
     if not deleting_member:
         return jsonify({"msg": "unespected value"}), 400
-    return jsonify({'done': "member has been deleted successfully"}), 200
+    return jsonify({"done": deleting_member}), 200
 
 @app.route('/member/<int:member_id>', methods=['PUT'])
 def update_family_member(member_id):
